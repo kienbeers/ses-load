@@ -1,7 +1,11 @@
 package com.example.load.request;
 
 import com.example.load.entity.S3MDataLoadFrame22023EntityPK;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -9,9 +13,6 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Data
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor
 public class S3MDataLoadFrame2Request {
     @NotNull
     private S3MDataLoadFrame22023EntityPK id;

@@ -48,15 +48,15 @@ public class MainController {
     public String publish(@RequestBody RequestMessageFrame1AndFrame2 request) throws MqttException {
         if(request.getFrame1Request() != null && request.getFrame2Request() == null) {
             String message = ConvertMessage.messageFrame1(S3MDataLoadFrame1Mapper.toEntity(request.getFrame1Request()));
-            mqttService.publish(mqttService.getDefaultTopic(), message);
+            mqttService.publish("loadTopic", message);
             return "Message sent: " + message;
         }
         if(request.getFrame1Request() == null && request.getFrame2Request() != null) {
             String message = ConvertMessage.messageFrame2(S3MDataLoadFrame2Mapper.toEntity(request.getFrame2Request()));
             mqttService.publish(mqttService.getDefaultTopic(), message);
             return "Message sent: " + message;
-        }
-        return "No mes";
+        }else {
+        return "No mes";}
     }
 
 

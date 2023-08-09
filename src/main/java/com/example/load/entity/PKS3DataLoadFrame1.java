@@ -23,4 +23,26 @@ public class PKS3DataLoadFrame1 implements Serializable {
     public PKS3DataLoadFrame1(Long transactionDate) {
         this.transactionDate = transactionDate;
     }
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Long getTransactionDate() {
+		return transactionDate;
+	}
+	public void setTransactionDate(Long transactionDate) {
+		this.transactionDate = transactionDate;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public PKS3DataLoadFrame1(Long id, Long transactionDate) {
+		super();
+		this.id = id;
+		this.transactionDate = transactionDate;
+	}
+    
+    
 }

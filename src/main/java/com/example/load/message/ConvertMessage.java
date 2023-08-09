@@ -13,9 +13,9 @@ public class ConvertMessage {
                 "*1*1*(" + e.getUab() + "," + e.getUbc() + "," + e.getUca() + ")*(" +
                 e.getUll() + "," + e.getUan() + "," + e.getUbn() + "," + e.getUcn() + "," + e.getUln() + ")*("
                 + e.getIa() + "," + e.getIb() +","+ e.getIc() + "," + e.getIn() + "," + e.getIg() + "," + e.getIavg() + ")*(" +
-                e.getPa() + "," + e.getPb() + "," + e.getPc() + "," + e.getPTotal() + ")*(" + e.getQa() + "," + e.getQb() + ","
-                + e.getQc() + "," + e.getQTotal() + ")*(" + e.getSa() + "," + e.getSb() + ","
-                + e.getSc() + "," + e.getSTotal() + ")*(" + e.getPfa() + ","
+                e.getPa() + "," + e.getPb() + "," + e.getPc() + "," + e.getsTotal() + ")*(" + e.getQa() + "," + e.getQb() + ","
+                + e.getQc() + "," + e.getqTotal() + ")*(" + e.getSa() + "," + e.getSb() + ","
+                + e.getSc() + "," + e.getsTotal() + ")*(" + e.getPfa() + ","
                 + e.getPfb() + "," + e.getPfc() + "," + e.getPfavg() + ")*" + e.getF() + "*(" +
                 e.getEp() + "," + e.getEpR() + "," + e.getEpDr() + "," + e.getEpDrr() + ")*(" +
                 e.getEq() + "," + e.getEqR() + "," + e.getEqDr() + "," + e.getEqDrr() + ")*(" +

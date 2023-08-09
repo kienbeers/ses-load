@@ -77,20 +77,20 @@ public class MqttConfig {
             public void messageArrived(String topic, MqttMessage message1) throws Exception {
                 // Xử lý message gửi về;
                 String mes = new String(message1.getPayload());
-//                System.out.println("Recive" + mes);
-//                String regex1 = "\\@\\d+\\*\\d+\\*\\d+\\*\\d+/\\d+/\\d+\\s\\d+\\:\\d+\\:\\d+\\*\\d+\\*\\d+\\*\\S+";
-//                String regex2 = "\\@\\[\\d+\\*\\d+\\*\\d+\\*\\d+\\*\\d+\\*\\d+\\*\\d+\\.\\d+\\.\\d+\\.\\d+\\*\\d+\\]\\*\\d" +
-//                        "+\\/\\d+\\/\\d+\\s\\d+\\:\\d+\\:\\d+\\*\\d+\\*\\d+\\*\\S+";
-//                if (mes.matches(regex1) == true) {
-//                    List<List<String>> result = extractCharacters(new String(message1.getPayload()));
-//                    List<String> elements = extractElements(mes);
-//                    service.insert(setRequestS3MDataLoadFrame1(result, elements));
-//                }
-//                if (mes.matches(regex2) == true) {
-//                    List<List<String>> result = extractCharacters(new String(message1.getPayload()));
-//                    List<String> elements = extractElements(mes);
-//                    service2.insert(setFrame2Request(result, elements));
-//                }
+                System.out.println("Recive" + mes);
+                String regex1 = "\\@\\d+\\*\\d+\\*\\d+\\*\\d+/\\d+/\\d+\\s\\d+\\:\\d+\\:\\d+\\*\\d+\\*\\d+\\*\\S+";
+                String regex2 = "\\@\\[\\d+\\*\\d+\\*\\d+\\*\\d+\\*\\d+\\*\\d+\\*\\d+\\.\\d+\\.\\d+\\.\\d+\\*\\d+\\]\\*\\d" +
+                        "+\\/\\d+\\/\\d+\\s\\d+\\:\\d+\\:\\d+\\*\\d+\\*\\d+\\*\\S+";
+                if (mes.matches(regex1) == true) {
+                    List<List<String>> result = extractCharacters(new String(message1.getPayload()));
+                    List<String> elements = extractElements(mes);
+                    service.insert(setRequestS3MDataLoadFrame1(result, elements));
+                }
+                if (mes.matches(regex2) == true) {
+                    List<List<String>> result = extractCharacters(new String(message1.getPayload()));
+                    List<String> elements = extractElements(mes);
+                    service2.insert(setFrame2Request(result, elements));
+                }
             }
 
             @Override
@@ -100,7 +100,13 @@ public class MqttConfig {
         });
         subscribe(defaultTopic);
     }
-    public void subscribe(String topic) throws MqttException {
+    public String getDefaultTopic() {
+		return defaultTopic;
+	}
+	public void setDefaultTopic(String defaultTopic) {
+		this.defaultTopic = defaultTopic;
+	}
+	public void subscribe(String topic) throws MqttException {
         mqttClient.subscribe(topic, (topic1, message) -> {
             System.out.println("mesage" + new String(message.getPayload()));
             String mes = new String(message.getPayload());
@@ -149,17 +155,17 @@ public class MqttConfig {
         request.setPa(Double.valueOf(str.get(3).get(0)));
         request.setPb(Double.valueOf(str.get(3).get(1)));
         request.setPc(Double.valueOf(str.get(3).get(2)));
-        request.setPTotal(Double.valueOf(str.get(3).get(3)));
+//        request.setpTotal(Double.valueOf(str.get(3).get(3)));
 
         request.setQa(Double.valueOf(str.get(4).get(0)));
         request.setQb(Double.valueOf(str.get(4).get(1)));
         request.setQc(Double.valueOf(str.get(4).get(2)));
-        request.setQTotal(Double.valueOf(str.get(4).get(3)));
+//        request.setqTotal(Double.valueOf(str.get(4).get(3)));
 
         request.setSa(Double.valueOf(str.get(5).get(0)));
         request.setSb(Double.valueOf(str.get(5).get(1)));
         request.setSc(Double.valueOf(str.get(5).get(2)));
-        request.setSTotal(Double.valueOf(str.get(5).get(3)));
+//        request.setsTotal(Double.valueOf(str.get(5).get(3)));
 
         request.setPfa(Double.valueOf(str.get(6).get(0)));
         request.setPfb(Double.valueOf(str.get(6).get(1)));
@@ -221,204 +227,204 @@ public class MqttConfig {
         }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         Date date = sdf.parse(ls2.get(8));
-        request.setId(new S3MDataLoadFrame22023EntityPK(new Random().nextLong(), new Long(date.getTime() / 1000)));
-        request.setDeviceId(123);
-        request.setSentDate(new Timestamp(date.getTime()));
-
-        request.setVanH1(Double.valueOf(ls.get(0).get(0)));
-        request.setVanH2(Double.valueOf(ls.get(0).get(1)));
-        request.setVanH3(Double.valueOf(ls.get(0).get(2)));
-        request.setVanH4(Double.valueOf(ls.get(0).get(3)));
-        request.setVanH5(Double.valueOf(ls.get(0).get(4)));
-        request.setVanH6(Double.valueOf(ls.get(0).get(5)));
-        request.setVanH7(Double.valueOf(ls.get(0).get(6)));
-        request.setVanH8(Double.valueOf(ls.get(0).get(7)));
-        request.setVanH9(Double.valueOf(ls.get(0).get(8)));
-        request.setVanH10(Double.valueOf(ls.get(0).get(9)));
-        request.setVanH11(Double.valueOf(ls.get(0).get(10)));
-        request.setVanH12(Double.valueOf(ls.get(0).get(11)));
-        request.setVanH13(Double.valueOf(ls.get(0).get(12)));
-        request.setVanH14(Double.valueOf(ls.get(0).get(13)));
-        request.setVanH15(Double.valueOf(ls.get(0).get(14)));
-        request.setVanH16(Double.valueOf(ls.get(0).get(15)));
-        request.setVanH17(Double.valueOf(ls.get(0).get(16)));
-        request.setVanH18(Double.valueOf(ls.get(0).get(17)));
-        request.setVanH19(Double.valueOf(ls.get(0).get(18)));
-        request.setVanH20(Double.valueOf(ls.get(0).get(19)));
-        request.setVanH21(Double.valueOf(ls.get(0).get(20)));
-        request.setVanH22(Double.valueOf(ls.get(0).get(21)));
-        request.setVanH23(Double.valueOf(ls.get(0).get(22)));
-        request.setVanH24(Double.valueOf(ls.get(0).get(23)));
-        request.setVanH25(Double.valueOf(ls.get(0).get(24)));
-        request.setVanH26(Double.valueOf(ls.get(0).get(25)));
-        request.setVanH27(Double.valueOf(ls.get(0).get(26)));
-        request.setVanH28(Double.valueOf(ls.get(0).get(27)));
-        request.setVanH29(Double.valueOf(ls.get(0).get(28)));
-        request.setVanH30(Double.valueOf(ls.get(0).get(29)));
-        request.setVanH31(Double.valueOf(ls.get(0).get(30)));
-
-        request.setVbnH1(Double.valueOf(ls.get(1).get(0)));
-        request.setVbnH2(Double.valueOf(ls.get(1).get(1)));
-        request.setVbnH3(Double.valueOf(ls.get(1).get(2)));
-        request.setVbnH4(Double.valueOf(ls.get(1).get(3)));
-        request.setVbnH5(Double.valueOf(ls.get(1).get(4)));
-        request.setVbnH6(Double.valueOf(ls.get(1).get(5)));
-        request.setVbnH7(Double.valueOf(ls.get(1).get(6)));
-        request.setVbnH8(Double.valueOf(ls.get(1).get(7)));
-        request.setVbnH9(Double.valueOf(ls.get(1).get(8)));
-        request.setVbnH10(Double.valueOf(ls.get(1).get(9)));
-        request.setVbnH11(Double.valueOf(ls.get(1).get(10)));
-        request.setVbnH12(Double.valueOf(ls.get(1).get(11)));
-        request.setVbnH13(Double.valueOf(ls.get(1).get(12)));
-        request.setVbnH14(Double.valueOf(ls.get(1).get(13)));
-        request.setVbnH15(Double.valueOf(ls.get(1).get(14)));
-        request.setVbnH16(Double.valueOf(ls.get(1).get(15)));
-        request.setVbnH17(Double.valueOf(ls.get(1).get(16)));
-        request.setVbnH18(Double.valueOf(ls.get(1).get(17)));
-        request.setVbnH19(Double.valueOf(ls.get(1).get(18)));
-        request.setVbnH20(Double.valueOf(ls.get(1).get(19)));
-        request.setVbnH21(Double.valueOf(ls.get(1).get(20)));
-        request.setVbnH22(Double.valueOf(ls.get(1).get(21)));
-        request.setVbnH23(Double.valueOf(ls.get(1).get(22)));
-        request.setVbnH24(Double.valueOf(ls.get(1).get(23)));
-        request.setVbnH25(Double.valueOf(ls.get(1).get(24)));
-        request.setVbnH26(Double.valueOf(ls.get(1).get(25)));
-        request.setVbnH27(Double.valueOf(ls.get(1).get(26)));
-        request.setVbnH28(Double.valueOf(ls.get(1).get(27)));
-        request.setVbnH29(Double.valueOf(ls.get(1).get(28)));
-        request.setVbnH30(Double.valueOf(ls.get(1).get(29)));
-        request.setVbnH31(Double.valueOf(ls.get(1).get(30)));
-
-        request.setVcnH1(Double.valueOf(ls.get(2).get(0)));
-        request.setVcnH2(Double.valueOf(ls.get(2).get(1)));
-        request.setVcnH3(Double.valueOf(ls.get(2).get(2)));
-        request.setVcnH4(Double.valueOf(ls.get(2).get(3)));
-        request.setVcnH5(Double.valueOf(ls.get(2).get(4)));
-        request.setVcnH6(Double.valueOf(ls.get(2).get(5)));
-        request.setVcnH7(Double.valueOf(ls.get(2).get(6)));
-        request.setVcnH8(Double.valueOf(ls.get(2).get(7)));
-        request.setVcnH9(Double.valueOf(ls.get(2).get(8)));
-        request.setVcnH10(Double.valueOf(ls.get(2).get(9)));
-        request.setVcnH11(Double.valueOf(ls.get(2).get(10)));
-        request.setVcnH12(Double.valueOf(ls.get(2).get(11)));
-        request.setVcnH13(Double.valueOf(ls.get(2).get(12)));
-        request.setVcnH14(Double.valueOf(ls.get(2).get(13)));
-        request.setVcnH15(Double.valueOf(ls.get(2).get(14)));
-        request.setVcnH16(Double.valueOf(ls.get(2).get(15)));
-        request.setVcnH17(Double.valueOf(ls.get(2).get(16)));
-        request.setVcnH18(Double.valueOf(ls.get(2).get(17)));
-        request.setVcnH19(Double.valueOf(ls.get(2).get(18)));
-        request.setVcnH20(Double.valueOf(ls.get(2).get(19)));
-        request.setVcnH21(Double.valueOf(ls.get(2).get(20)));
-        request.setVcnH22(Double.valueOf(ls.get(2).get(21)));
-        request.setVcnH23(Double.valueOf(ls.get(2).get(22)));
-        request.setVcnH24(Double.valueOf(ls.get(2).get(23)));
-        request.setVcnH25(Double.valueOf(ls.get(2).get(24)));
-        request.setVcnH26(Double.valueOf(ls.get(2).get(25)));
-        request.setVcnH27(Double.valueOf(ls.get(2).get(26)));
-        request.setVcnH28(Double.valueOf(ls.get(2).get(27)));
-        request.setVcnH29(Double.valueOf(ls.get(2).get(28)));
-        request.setVcnH30(Double.valueOf(ls.get(2).get(29)));
-        request.setVcnH31(Double.valueOf(ls.get(2).get(30)));
-
-        request.setIaH1(Double.valueOf(ls.get(3).get(0)));
-        request.setIaH2(Double.valueOf(ls.get(3).get(1)));
-        request.setIaH3(Double.valueOf(ls.get(3).get(2)));
-        request.setIaH4(Double.valueOf(ls.get(3).get(3)));
-        request.setIaH5(Double.valueOf(ls.get(3).get(4)));
-        request.setIaH6(Double.valueOf(ls.get(3).get(5)));
-        request.setIaH7(Double.valueOf(ls.get(3).get(6)));
-        request.setIaH8(Double.valueOf(ls.get(3).get(7)));
-        request.setIaH9(Double.valueOf(ls.get(3).get(8)));
-        request.setIaH10(Double.valueOf(ls.get(3).get(9)));
-        request.setIaH11(Double.valueOf(ls.get(3).get(10)));
-        request.setIaH12(Double.valueOf(ls.get(3).get(11)));
-        request.setIaH13(Double.valueOf(ls.get(3).get(12)));
-        request.setIaH14(Double.valueOf(ls.get(3).get(13)));
-        request.setIaH15(Double.valueOf(ls.get(3).get(14)));
-        request.setIaH16(Double.valueOf(ls.get(3).get(15)));
-        request.setIaH17(Double.valueOf(ls.get(3).get(16)));
-        request.setIaH18(Double.valueOf(ls.get(3).get(17)));
-        request.setIaH19(Double.valueOf(ls.get(3).get(18)));
-        request.setIaH20(Double.valueOf(ls.get(3).get(19)));
-        request.setIaH21(Double.valueOf(ls.get(3).get(20)));
-        request.setIaH22(Double.valueOf(ls.get(3).get(21)));
-        request.setIaH23(Double.valueOf(ls.get(3).get(22)));
-        request.setIaH24(Double.valueOf(ls.get(3).get(23)));
-        request.setIaH25(Double.valueOf(ls.get(3).get(24)));
-        request.setIaH26(Double.valueOf(ls.get(3).get(25)));
-        request.setIaH27(Double.valueOf(ls.get(3).get(26)));
-        request.setIaH28(Double.valueOf(ls.get(3).get(27)));
-        request.setIaH29(Double.valueOf(ls.get(3).get(28)));
-        request.setIaH30(Double.valueOf(ls.get(3).get(29)));
-        request.setIaH31(Double.valueOf(ls.get(3).get(30)));
-
-        request.setIbH1(Double.valueOf(ls.get(4).get(0)));
-        request.setIbH2(Double.valueOf(ls.get(4).get(1)));
-        request.setIbH3(Double.valueOf(ls.get(4).get(2)));
-        request.setIbH4(Double.valueOf(ls.get(4).get(3)));
-        request.setIbH5(Double.valueOf(ls.get(4).get(4)));
-        request.setIbH6(Double.valueOf(ls.get(4).get(5)));
-        request.setIbH7(Double.valueOf(ls.get(4).get(6)));
-        request.setIbH8(Double.valueOf(ls.get(4).get(7)));
-        request.setIbH9(Double.valueOf(ls.get(4).get(8)));
-        request.setIbH10(Double.valueOf(ls.get(4).get(9)));
-        request.setIbH11(Double.valueOf(ls.get(4).get(10)));
-        request.setIbH12(Double.valueOf(ls.get(4).get(11)));
-        request.setIbH13(Double.valueOf(ls.get(4).get(12)));
-        request.setIbH14(Double.valueOf(ls.get(4).get(13)));
-        request.setIbH15(Double.valueOf(ls.get(4).get(14)));
-        request.setIbH16(Double.valueOf(ls.get(4).get(15)));
-        request.setIbH17(Double.valueOf(ls.get(4).get(16)));
-        request.setIbH18(Double.valueOf(ls.get(4).get(17)));
-        request.setIbH19(Double.valueOf(ls.get(4).get(18)));
-        request.setIbH20(Double.valueOf(ls.get(4).get(19)));
-        request.setIbH21(Double.valueOf(ls.get(4).get(20)));
-        request.setIbH22(Double.valueOf(ls.get(4).get(21)));
-        request.setIbH23(Double.valueOf(ls.get(4).get(22)));
-        request.setIbH24(Double.valueOf(ls.get(4).get(23)));
-        request.setIbH25(Double.valueOf(ls.get(4).get(24)));
-        request.setIbH26(Double.valueOf(ls.get(4).get(25)));
-        request.setIbH27(Double.valueOf(ls.get(4).get(26)));
-        request.setIbH28(Double.valueOf(ls.get(4).get(27)));
-        request.setIbH29(Double.valueOf(ls.get(4).get(28)));
-        request.setIbH30(Double.valueOf(ls.get(4).get(29)));
-        request.setIbH31(Double.valueOf(ls.get(4).get(30)));
-
-        request.setIcH1(Double.valueOf(ls.get(5).get(0)));
-        request.setIcH2(Double.valueOf(ls.get(5).get(1)));
-        request.setIcH3(Double.valueOf(ls.get(5).get(2)));
-        request.setIcH4(Double.valueOf(ls.get(5).get(3)));
-        request.setIcH5(Double.valueOf(ls.get(5).get(4)));
-        request.setIcH6(Double.valueOf(ls.get(5).get(5)));
-        request.setIcH7(Double.valueOf(ls.get(5).get(6)));
-        request.setIcH8(Double.valueOf(ls.get(5).get(7)));
-        request.setIcH9(Double.valueOf(ls.get(5).get(8)));
-        request.setIcH10(Double.valueOf(ls.get(5).get(9)));
-        request.setIcH11(Double.valueOf(ls.get(5).get(10)));
-        request.setIcH12(Double.valueOf(ls.get(5).get(11)));
-        request.setIcH13(Double.valueOf(ls.get(5).get(12)));
-        request.setIcH14(Double.valueOf(ls.get(5).get(13)));
-        request.setIcH15(Double.valueOf(ls.get(5).get(14)));
-        request.setIcH16(Double.valueOf(ls.get(5).get(15)));
-        request.setIcH17(Double.valueOf(ls.get(5).get(16)));
-        request.setIcH18(Double.valueOf(ls.get(5).get(17)));
-        request.setIcH19(Double.valueOf(ls.get(5).get(18)));
-        request.setIcH20(Double.valueOf(ls.get(5).get(19)));
-        request.setIcH21(Double.valueOf(ls.get(5).get(20)));
-        request.setIcH22(Double.valueOf(ls.get(5).get(21)));
-        request.setIcH23(Double.valueOf(ls.get(5).get(22)));
-        request.setIcH24(Double.valueOf(ls.get(5).get(23)));
-        request.setIcH25(Double.valueOf(ls.get(5).get(24)));
-        request.setIcH26(Double.valueOf(ls.get(5).get(25)));
-        request.setIcH27(Double.valueOf(ls.get(5).get(26)));
-        request.setIcH28(Double.valueOf(ls.get(5).get(27)));
-        request.setIcH29(Double.valueOf(ls.get(5).get(28)));
-        request.setIcH30(Double.valueOf(ls.get(5).get(29)));
-        request.setIcH31(Double.valueOf(ls.get(5).get(30)));
+//        request.setId(new S3MDataLoadFrame22023EntityPK(new Random().nextLong(), new Long(date.getTime() / 1000)));
+//        request.
+//        request.setSentDate(new Timestamp(date.getTime()));
+//		
+//        request.setVanH1(Double.valueOf(ls.get(0).get(0)));
+//        request.setVanH2(Double.valueOf(ls.get(0).get(1)));
+//        request.setVanH3(Double.valueOf(ls.get(0).get(2)));
+//        request.setVanH4(Double.valueOf(ls.get(0).get(3)));
+//        request.setVanH5(Double.valueOf(ls.get(0).get(4)));
+//        request.setVanH6(Double.valueOf(ls.get(0).get(5)));
+//        request.setVanH7(Double.valueOf(ls.get(0).get(6)));
+//        request.setVanH8(Double.valueOf(ls.get(0).get(7)));
+//        request.setVanH9(Double.valueOf(ls.get(0).get(8)));
+//        request.setVanH10(Double.valueOf(ls.get(0).get(9)));
+//        request.setVanH11(Double.valueOf(ls.get(0).get(10)));
+//        request.setVanH12(Double.valueOf(ls.get(0).get(11)));
+//        request.setVanH13(Double.valueOf(ls.get(0).get(12)));
+//        request.setVanH14(Double.valueOf(ls.get(0).get(13)));
+//        request.setVanH15(Double.valueOf(ls.get(0).get(14)));
+//        request.setVanH16(Double.valueOf(ls.get(0).get(15)));
+//        request.setVanH17(Double.valueOf(ls.get(0).get(16)));
+//        request.setVanH18(Double.valueOf(ls.get(0).get(17)));
+//        request.setVanH19(Double.valueOf(ls.get(0).get(18)));
+//        request.setVanH20(Double.valueOf(ls.get(0).get(19)));
+//        request.setVanH21(Double.valueOf(ls.get(0).get(20)));
+//        request.setVanH22(Double.valueOf(ls.get(0).get(21)));
+//        request.setVanH23(Double.valueOf(ls.get(0).get(22)));
+//        request.setVanH24(Double.valueOf(ls.get(0).get(23)));
+//        request.setVanH25(Double.valueOf(ls.get(0).get(24)));
+//        request.setVanH26(Double.valueOf(ls.get(0).get(25)));
+//        request.setVanH27(Double.valueOf(ls.get(0).get(26)));
+//        request.setVanH28(Double.valueOf(ls.get(0).get(27)));
+//        request.setVanH29(Double.valueOf(ls.get(0).get(28)));
+//        request.setVanH30(Double.valueOf(ls.get(0).get(29)));
+//        request.setVanH31(Double.valueOf(ls.get(0).get(30)));
+//
+//        request.setVbnH1(Double.valueOf(ls.get(1).get(0)));
+//        request.setVbnH2(Double.valueOf(ls.get(1).get(1)));
+//        request.setVbnH3(Double.valueOf(ls.get(1).get(2)));
+//        request.setVbnH4(Double.valueOf(ls.get(1).get(3)));
+//        request.setVbnH5(Double.valueOf(ls.get(1).get(4)));
+//        request.setVbnH6(Double.valueOf(ls.get(1).get(5)));
+//        request.setVbnH7(Double.valueOf(ls.get(1).get(6)));
+//        request.setVbnH8(Double.valueOf(ls.get(1).get(7)));
+//        request.setVbnH9(Double.valueOf(ls.get(1).get(8)));
+//        request.setVbnH10(Double.valueOf(ls.get(1).get(9)));
+//        request.setVbnH11(Double.valueOf(ls.get(1).get(10)));
+//        request.setVbnH12(Double.valueOf(ls.get(1).get(11)));
+//        request.setVbnH13(Double.valueOf(ls.get(1).get(12)));
+//        request.setVbnH14(Double.valueOf(ls.get(1).get(13)));
+//        request.setVbnH15(Double.valueOf(ls.get(1).get(14)));
+//        request.setVbnH16(Double.valueOf(ls.get(1).get(15)));
+//        request.setVbnH17(Double.valueOf(ls.get(1).get(16)));
+//        request.setVbnH18(Double.valueOf(ls.get(1).get(17)));
+//        request.setVbnH19(Double.valueOf(ls.get(1).get(18)));
+//        request.setVbnH20(Double.valueOf(ls.get(1).get(19)));
+//        request.setVbnH21(Double.valueOf(ls.get(1).get(20)));
+//        request.setVbnH22(Double.valueOf(ls.get(1).get(21)));
+//        request.setVbnH23(Double.valueOf(ls.get(1).get(22)));
+//        request.setVbnH24(Double.valueOf(ls.get(1).get(23)));
+//        request.setVbnH25(Double.valueOf(ls.get(1).get(24)));
+//        request.setVbnH26(Double.valueOf(ls.get(1).get(25)));
+//        request.setVbnH27(Double.valueOf(ls.get(1).get(26)));
+//        request.setVbnH28(Double.valueOf(ls.get(1).get(27)));
+//        request.setVbnH29(Double.valueOf(ls.get(1).get(28)));
+//        request.setVbnH30(Double.valueOf(ls.get(1).get(29)));
+//        request.setVbnH31(Double.valueOf(ls.get(1).get(30)));
+//
+//        request.setVcnH1(Double.valueOf(ls.get(2).get(0)));
+//        request.setVcnH2(Double.valueOf(ls.get(2).get(1)));
+//        request.setVcnH3(Double.valueOf(ls.get(2).get(2)));
+//        request.setVcnH4(Double.valueOf(ls.get(2).get(3)));
+//        request.setVcnH5(Double.valueOf(ls.get(2).get(4)));
+//        request.setVcnH6(Double.valueOf(ls.get(2).get(5)));
+//        request.setVcnH7(Double.valueOf(ls.get(2).get(6)));
+//        request.setVcnH8(Double.valueOf(ls.get(2).get(7)));
+//        request.setVcnH9(Double.valueOf(ls.get(2).get(8)));
+//        request.setVcnH10(Double.valueOf(ls.get(2).get(9)));
+//        request.setVcnH11(Double.valueOf(ls.get(2).get(10)));
+//        request.setVcnH12(Double.valueOf(ls.get(2).get(11)));
+//        request.setVcnH13(Double.valueOf(ls.get(2).get(12)));
+//        request.setVcnH14(Double.valueOf(ls.get(2).get(13)));
+//        request.setVcnH15(Double.valueOf(ls.get(2).get(14)));
+//        request.setVcnH16(Double.valueOf(ls.get(2).get(15)));
+//        request.setVcnH17(Double.valueOf(ls.get(2).get(16)));
+//        request.setVcnH18(Double.valueOf(ls.get(2).get(17)));
+//        request.setVcnH19(Double.valueOf(ls.get(2).get(18)));
+//        request.setVcnH20(Double.valueOf(ls.get(2).get(19)));
+//        request.setVcnH21(Double.valueOf(ls.get(2).get(20)));
+//        request.setVcnH22(Double.valueOf(ls.get(2).get(21)));
+//        request.setVcnH23(Double.valueOf(ls.get(2).get(22)));
+//        request.setVcnH24(Double.valueOf(ls.get(2).get(23)));
+//        request.setVcnH25(Double.valueOf(ls.get(2).get(24)));
+//        request.setVcnH26(Double.valueOf(ls.get(2).get(25)));
+//        request.setVcnH27(Double.valueOf(ls.get(2).get(26)));
+//        request.setVcnH28(Double.valueOf(ls.get(2).get(27)));
+//        request.setVcnH29(Double.valueOf(ls.get(2).get(28)));
+//        request.setVcnH30(Double.valueOf(ls.get(2).get(29)));
+//        request.setVcnH31(Double.valueOf(ls.get(2).get(30)));
+//
+//        request.setIaH1(Double.valueOf(ls.get(3).get(0)));
+//        request.setIaH2(Double.valueOf(ls.get(3).get(1)));
+//        request.setIaH3(Double.valueOf(ls.get(3).get(2)));
+//        request.setIaH4(Double.valueOf(ls.get(3).get(3)));
+//        request.setIaH5(Double.valueOf(ls.get(3).get(4)));
+//        request.setIaH6(Double.valueOf(ls.get(3).get(5)));
+//        request.setIaH7(Double.valueOf(ls.get(3).get(6)));
+//        request.setIaH8(Double.valueOf(ls.get(3).get(7)));
+//        request.setIaH9(Double.valueOf(ls.get(3).get(8)));
+//        request.setIaH10(Double.valueOf(ls.get(3).get(9)));
+//        request.setIaH11(Double.valueOf(ls.get(3).get(10)));
+//        request.setIaH12(Double.valueOf(ls.get(3).get(11)));
+//        request.setIaH13(Double.valueOf(ls.get(3).get(12)));
+//        request.setIaH14(Double.valueOf(ls.get(3).get(13)));
+//        request.setIaH15(Double.valueOf(ls.get(3).get(14)));
+//        request.setIaH16(Double.valueOf(ls.get(3).get(15)));
+//        request.setIaH17(Double.valueOf(ls.get(3).get(16)));
+//        request.setIaH18(Double.valueOf(ls.get(3).get(17)));
+//        request.setIaH19(Double.valueOf(ls.get(3).get(18)));
+//        request.setIaH20(Double.valueOf(ls.get(3).get(19)));
+//        request.setIaH21(Double.valueOf(ls.get(3).get(20)));
+//        request.setIaH22(Double.valueOf(ls.get(3).get(21)));
+//        request.setIaH23(Double.valueOf(ls.get(3).get(22)));
+//        request.setIaH24(Double.valueOf(ls.get(3).get(23)));
+//        request.setIaH25(Double.valueOf(ls.get(3).get(24)));
+//        request.setIaH26(Double.valueOf(ls.get(3).get(25)));
+//        request.setIaH27(Double.valueOf(ls.get(3).get(26)));
+//        request.setIaH28(Double.valueOf(ls.get(3).get(27)));
+//        request.setIaH29(Double.valueOf(ls.get(3).get(28)));
+//        request.setIaH30(Double.valueOf(ls.get(3).get(29)));
+//        request.setIaH31(Double.valueOf(ls.get(3).get(30)));
+//
+//        request.setIbH1(Double.valueOf(ls.get(4).get(0)));
+//        request.setIbH2(Double.valueOf(ls.get(4).get(1)));
+//        request.setIbH3(Double.valueOf(ls.get(4).get(2)));
+//        request.setIbH4(Double.valueOf(ls.get(4).get(3)));
+//        request.setIbH5(Double.valueOf(ls.get(4).get(4)));
+//        request.setIbH6(Double.valueOf(ls.get(4).get(5)));
+//        request.setIbH7(Double.valueOf(ls.get(4).get(6)));
+//        request.setIbH8(Double.valueOf(ls.get(4).get(7)));
+//        request.setIbH9(Double.valueOf(ls.get(4).get(8)));
+//        request.setIbH10(Double.valueOf(ls.get(4).get(9)));
+//        request.setIbH11(Double.valueOf(ls.get(4).get(10)));
+//        request.setIbH12(Double.valueOf(ls.get(4).get(11)));
+//        request.setIbH13(Double.valueOf(ls.get(4).get(12)));
+//        request.setIbH14(Double.valueOf(ls.get(4).get(13)));
+//        request.setIbH15(Double.valueOf(ls.get(4).get(14)));
+//        request.setIbH16(Double.valueOf(ls.get(4).get(15)));
+//        request.setIbH17(Double.valueOf(ls.get(4).get(16)));
+//        request.setIbH18(Double.valueOf(ls.get(4).get(17)));
+//        request.setIbH19(Double.valueOf(ls.get(4).get(18)));
+//        request.setIbH20(Double.valueOf(ls.get(4).get(19)));
+//        request.setIbH21(Double.valueOf(ls.get(4).get(20)));
+//        request.setIbH22(Double.valueOf(ls.get(4).get(21)));
+//        request.setIbH23(Double.valueOf(ls.get(4).get(22)));
+//        request.setIbH24(Double.valueOf(ls.get(4).get(23)));
+//        request.setIbH25(Double.valueOf(ls.get(4).get(24)));
+//        request.setIbH26(Double.valueOf(ls.get(4).get(25)));
+//        request.setIbH27(Double.valueOf(ls.get(4).get(26)));
+//        request.setIbH28(Double.valueOf(ls.get(4).get(27)));
+//        request.setIbH29(Double.valueOf(ls.get(4).get(28)));
+//        request.setIbH30(Double.valueOf(ls.get(4).get(29)));
+//        request.setIbH31(Double.valueOf(ls.get(4).get(30)));
+//
+//        request.setIcH1(Double.valueOf(ls.get(5).get(0)));
+//        request.setIcH2(Double.valueOf(ls.get(5).get(1)));
+//        request.setIcH3(Double.valueOf(ls.get(5).get(2)));
+//        request.setIcH4(Double.valueOf(ls.get(5).get(3)));
+//        request.setIcH5(Double.valueOf(ls.get(5).get(4)));
+//        request.setIcH6(Double.valueOf(ls.get(5).get(5)));
+//        request.setIcH7(Double.valueOf(ls.get(5).get(6)));
+//        request.setIcH8(Double.valueOf(ls.get(5).get(7)));
+//        request.setIcH9(Double.valueOf(ls.get(5).get(8)));
+//        request.setIcH10(Double.valueOf(ls.get(5).get(9)));
+//        request.setIcH11(Double.valueOf(ls.get(5).get(10)));
+//        request.setIcH12(Double.valueOf(ls.get(5).get(11)));
+//        request.setIcH13(Double.valueOf(ls.get(5).get(12)));
+//        request.setIcH14(Double.valueOf(ls.get(5).get(13)));
+//        request.setIcH15(Double.valueOf(ls.get(5).get(14)));
+//        request.setIcH16(Double.valueOf(ls.get(5).get(15)));
+//        request.setIcH17(Double.valueOf(ls.get(5).get(16)));
+//        request.setIcH18(Double.valueOf(ls.get(5).get(17)));
+//        request.setIcH19(Double.valueOf(ls.get(5).get(18)));
+//        request.setIcH20(Double.valueOf(ls.get(5).get(19)));
+//        request.setIcH21(Double.valueOf(ls.get(5).get(20)));
+//        request.setIcH22(Double.valueOf(ls.get(5).get(21)));
+//        request.setIcH23(Double.valueOf(ls.get(5).get(22)));
+//        request.setIcH24(Double.valueOf(ls.get(5).get(23)));
+//        request.setIcH25(Double.valueOf(ls.get(5).get(24)));
+//        request.setIcH26(Double.valueOf(ls.get(5).get(25)));
+//        request.setIcH27(Double.valueOf(ls.get(5).get(26)));
+//        request.setIcH28(Double.valueOf(ls.get(5).get(27)));
+//        request.setIcH29(Double.valueOf(ls.get(5).get(28)));
+//        request.setIcH30(Double.valueOf(ls.get(5).get(29)));
+//        request.setIcH31(Double.valueOf(ls.get(5).get(30)));
         return request;
     }
-
+//
     public void publish(String topic, String payload) throws MqttException {
         MqttMessage message = new MqttMessage(payload.getBytes());
         mqttClient.publish(topic, message);
