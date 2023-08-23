@@ -5,6 +5,8 @@ import com.example.load.mapper.S3MDataLoadFrame1Mapper;
 import com.example.load.mapper.S3MDataLoadFrame2Mapper;
 import com.example.load.message.ConvertMessage;
 import com.example.load.mqtt.MqttConfig;
+import com.example.load.mqtt.MqttSub;
+import com.example.load.mqtt.UserMqtt;
 import com.example.load.request.RequestMessageFrame1AndFrame2;
 import com.example.load.request.S3MDataLoadFrame1Request;
 import com.example.load.request.S3MDataLoadFrame2Request;
@@ -41,22 +43,16 @@ public class MainController {
         return new S3MDataLoadFrame1Response(S3MDataLoadFrame1Mapper.toListDTO(this.s3MDataLoadFrame1Service.getData()));
     }
 
-    @Autowired
-    private MqttConfig mqttService;
+//    @Autowired
+//    private MqttConfig mqttService;
+
 
     @PostMapping("/send-message")
-    public String publish(@RequestBody RequestMessageFrame1AndFrame2 request) throws MqttException {
-        if(request.getFrame1Request() != null && request.getFrame2Request() == null) {
-            String message = ConvertMessage.messageFrame1(S3MDataLoadFrame1Mapper.toEntity(request.getFrame1Request()));
-            mqttService.publish("loadTopic", message);
-            return "Message sent: " + message;
-        }
-        if(request.getFrame1Request() == null && request.getFrame2Request() != null) {
-            String message = ConvertMessage.messageFrame2(S3MDataLoadFrame2Mapper.toEntity(request.getFrame2Request()));
-            mqttService.publish(mqttService.getDefaultTopic(), message);
-            return "Message sent: " + message;
-        }else {
-        return "No mes";}
+    public String sendmessage(@RequestBody UserMqtt user) throws MqttException {
+            MqttSub mqttSub = new MqttSub(user.getBrokerUrl(), user.getClientId(), user.getUsername(), user.getPassword(), user.getDefaultTopic());
+            mqttSub.connect();
+            mqttSub.publish(user.getDefaultTopic(), user.getMessage());
+            return "Message sent: " + user.getMessage();
     }
 
 

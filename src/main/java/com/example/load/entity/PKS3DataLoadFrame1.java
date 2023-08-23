@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @Embeddable
 public class PKS3DataLoadFrame1 implements Serializable {

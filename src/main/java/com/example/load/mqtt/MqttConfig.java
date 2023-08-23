@@ -58,7 +58,7 @@ public class MqttConfig {
 
     private MqttClient mqttClient;
 
-    @Bean
+//    @Bean
     public void connect() throws MqttException {
         mqttClient = new MqttClient(brokerUrl, clientId);
         MqttConnectOptions options = new MqttConnectOptions();
