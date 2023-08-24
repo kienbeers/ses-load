@@ -43,9 +43,6 @@ public class MainController {
         return new S3MDataLoadFrame1Response(S3MDataLoadFrame1Mapper.toListDTO(this.s3MDataLoadFrame1Service.getData()));
     }
 
-//    @Autowired
-//    private MqttConfig mqttService;
-
 
     @PostMapping("/send-message")
     public String sendmessage(@RequestBody UserMqtt user) throws MqttException {
